@@ -58,7 +58,7 @@ data1.then(data => {
 let loadData =(data) =>{
   if ( data.gotData.length == 0){
     let emptyele = {
-      "title" : "No result found" 
+      "title" : "No result found",
     }
     data.gotData.push(emptyele);
   }
@@ -115,22 +115,28 @@ let loadData =(data) =>{
     }
     
     console.log(newdata)
-    let sortData = newdata.filter(tcs =>{
-      autolist.innerHTML = "";
-      const regex = new RegExp(`^${searchText}` , 'gi');
-      return tcs.title.match(regex) || (tcs.title.toLowerCase().includes(searchText.toLowerCase()))
-    });
-    // let sortData = [];
-    // newdata.forEach(tcs =>{
-    //   const titles = tcs.title.split(" ");
-    //   // console.log(titles)
-    //   titles.some(matches =>{
-    //     if(matches.toLowerCase().indexOf(searchText.toLowerCase()) == 0 ){
-    //       sortData.push(tcs.title)
-    //       return true;
-    //     }
-    //   })
-    // })
+    // let sortData = newdata.filter(tcs =>{
+    //   autolist.innerHTML = "";
+    //   const regex = new RegExp(`^${searchText}` , 'gi');
+    //   return tcs.title.match(regex) || (tcs.title.toLowerCase().includes(searchText.toLowerCase()))
+    // });
+    let sortData = [];
+    newdata.forEach(tcs =>{
+      const titles = tcs.title.split(" ");
+      // console.log(titles)
+      titles.some(matches =>{
+        if(matches.toLowerCase().indexOf(searchText.toLowerCase()) == 0 ){
+          sortData.push(tcs.title)
+          return true;
+        }
+      })
+            if(searchText.toLowerCase().includes(" ")){
+        const regex = new RegExp(`^${searchText}` , 'gi');
+        if( tcs.title.match(regex) || (tcs.title.toLowerCase().includes(searchText.toLowerCase()))){
+          sortData.push(tcs.title)
+        }
+      }
+    })
     console.log(sortData);
     sortData.forEach(element => {
       console.log(element)
@@ -138,15 +144,14 @@ let loadData =(data) =>{
       let li = document.createElement("li");
       li.tabIndex = "0";
       li.classList.add("autocompleteli");
-      li.textContent = element.title
+      li.textContent = element
        autolist.append(li);
       //autolist.innerHTML += li;
       // console.log(element);
       li.addEventListener("click",(e)=>{
-        let searchclick = sortData.filter(ele=>ele.title === element.title);
+        let searchclick = data.filter(ele=>ele.title == element);
         loadData({gotData:searchclick});
       })
-      
       if (searchText.length == 0 ){
         sortData = [];
         autolist.innerHTML = "";
@@ -162,15 +167,27 @@ let loadData =(data) =>{
         
       // }
     });
-
+    let filterData = [];
     let allData = newdata.filter(tcs =>{
-      const regex = new RegExp(`^${searchText}` , 'gi');
-      return tcs.title.match(regex) || (tcs.title.toLowerCase().includes(searchText.toLowerCase()))
+      const titles = tcs.title.split(" ");
+      titles.some(matches =>{
+        if(matches.toLowerCase().indexOf(searchText.toLowerCase()) == 0 ){
+          filterData.push(tcs)
+          return true;
+        }
+      })
+      if(searchText.toLowerCase().includes(" ")){
+        const regex = new RegExp(`^${searchText}` , 'gi');
+        if( tcs.title.match(regex) || (tcs.title.toLowerCase().includes(searchText.toLowerCase()))){
+          filterData.push(tcs)
+        }
+      }
+      // const regex = new RegExp(`^${searchText}` , 'gi');
+      // return tcs.title.match(regex) || (tcs.title.toLowerCase().includes(searchText.toLowerCase()))
     });
-    loadData({gotData:allData});
-    
-  
-    // console.log(tcsinfo)
+    console.log(filterData);
+    loadData({gotData:filterData});  
+    console.log(filterData)
 })
 }
 
