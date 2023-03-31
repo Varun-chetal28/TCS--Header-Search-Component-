@@ -39,7 +39,7 @@ data1.then(data => {
     if (n== true ){
     let documentHeight = document.body.scrollHeight;
     let currentScroll = window.scrollY + window.innerHeight;
-    let modifier = 0;
+    let modifier = 5;
     if (currentScroll + modifier > documentHeight) {
       start += 3;
       end += 3;
@@ -68,71 +68,11 @@ let loadData =(data) =>{
   
 }
 
-//search json and filter
-  
-  // fetch('info.json')
-  // .then(response => response.json())
-  // .then((data)
-
-  // const suggestionList = searchList =>{
-  //   data1.then(data => {
-  //     let suggestionList = document.querySelector(".autolist").children;
-  //     console.log(suggestionList);
-  //   })
-  // }
-
-// function varun(item){
-//   item.addEventListener('click' , (e)=>{
-//     console.log('ghsdgf');
-// })
-// }
-
   const searchInfo = searchText =>{
+    autolist.innerHTML = ""
     let suggestionList = document.querySelector(".autolist").children;
     let suggestionListArray = Object.values(suggestionList);
   data1.then(data => {   
-      // suggestionListArray.forEach(myFunction);
-//       function matching(item) {
-//         console.log(item);
-// }
-// suggestionListArray.addEventListener("click" , (e)=>{
-//   console.log(e.target);
-// })
-
-    
-    // for (let i=0; i<suggestionListArray.length; i++) 
-  //   function clickList(){
-  //     {
-  //       if(suggestionListArray[i]){
-
-  //       }
-  //     // console.log(suggestionListArray);
-  //     // console.log('varun');
-  //     // varun(suggestionList.length);
-  //     // suggestionList[i].addEventListener('click' , (e)=>{
-  //     //   // console.log(suggestionList[i].innerHTML);
-  //     //   console.log(e.target);
-  //     //   // varun();
-  //     // })
-  //   }
-  // }
-    
-
-    
-    // console.log(data);
-    // let suggestionata = data.filter(tcs =>{
-    //   //  console.log(suggestionlist[i].innerHTML)
-        
-    // })
-
-    // if (searchText.length === 0 ){
-    //   allData = [];
-    // }
-
-    // var tcsinfo = {
-    //   gotData : allData
-    // }
-    // loadData(tcsinfo);
     let newdata = [];
     if(all.classList.contains("selected")){
       let allData = newdata.filter(tcs =>{
@@ -170,17 +110,30 @@ let loadData =(data) =>{
       newdata.push(...productionData);
     }
 
-    if(!res && !ne && !blo && ! pro){
-      newdata.push(...data);
+    if(research.classList.contains("selected") == false && news.classList.contains("selected") ==false && production.classList.contains("selected") == false && blog.classList.contains("selected") == false ){
+      newdata.push(...data)
     }
-    // console.log(newdata)
+    
+    console.log(newdata)
     let sortData = newdata.filter(tcs =>{
       autolist.innerHTML = "";
-
       const regex = new RegExp(`^${searchText}` , 'gi');
       return tcs.title.match(regex) || (tcs.title.toLowerCase().includes(searchText.toLowerCase()))
     });
+    // let sortData = [];
+    // newdata.forEach(tcs =>{
+    //   const titles = tcs.title.split(" ");
+    //   // console.log(titles)
+    //   titles.some(matches =>{
+    //     if(matches.toLowerCase().indexOf(searchText.toLowerCase()) == 0 ){
+    //       sortData.push(tcs.title)
+    //       return true;
+    //     }
+    //   })
+    // })
+    console.log(sortData);
     sortData.forEach(element => {
+      console.log(element)
       //let li = `<li class = "autocompleteli" tabindex = "0"> ${element.title} </li>`;
       let li = document.createElement("li");
       li.tabIndex = "0";
@@ -194,7 +147,7 @@ let loadData =(data) =>{
         loadData({gotData:searchclick});
       })
       
-      if (searchText.length === 0 ){
+      if (searchText.length == 0 ){
         sortData = [];
         autolist.innerHTML = "";
         let result = "No Result Found"
@@ -300,9 +253,6 @@ for (i = 0; i < list.length; i++) {
 
 
 
-
-
-
 questionmark.addEventListener("click", (e) => {
   searchbar.classList.toggle("show");
 })
@@ -326,13 +276,6 @@ let research = document.querySelector(".research");
 let news = document.querySelector(".news");
 let production = document.querySelector(".production");
 let blog = document.querySelector(".blog");
-
-
-// production.classList.remove("selected");
-// all.classList.remove("selected");
-// research.classList.remove("selected");
-// news.classList.remove("selected");
-// blog.classList.remove("selected");
 
 
 all.addEventListener("click" , ()=>{
@@ -514,115 +457,61 @@ const searchAuto = searchText =>{
   })
 }
 
-  
-//click list to search
+//nav color change
+let myNav = document.querySelector('.mynav');
+window.addEventListener("scroll" , ()=> { 
+  // console.log(myNav)
+  console.log(document.body)
+    if (window.scrollY >= 80 ) {
+        myNav.classList.add("mynavclr");
+        myNav.classList.remove("mynav");
+        // console.log(document.body.scrollHeight)   
+        // console.log(window.innerHeight)
+        // console.log(window.scrollY);
+    }
+    if(window.scrollY <= 80 ) {
+        myNav.classList.add("mynav");
+        myNav.classList.remove("mynavclr");
+    }
+});
 
 
+let activeClass1 = document.querySelector(".hover1");
+// console.log(activeClass)
+activeClass1.addEventListener("mouseover",()=> {
+  activeClass1.classList.add("active")
+});
+activeClass1.addEventListener("mouseleave", ()=> {
+    activeClass1.classList.remove("active")
+});
 
 
+let activeClass2 = document.querySelector(".hover2");
+// console.log(activeClass)
+activeClass2.addEventListener("mouseover",()=> {
+  activeClass2.classList.add("active")
+});
+activeClass2.addEventListener("mouseleave", ()=> {
+    activeClass2.classList.remove("active")
+});
 
-// data1.then(data => {
-//   arr = data;
-//   console.log(arr);
-// let filterBtn = document.querySelectorAll(".filter-btn");
-// console.log(filterBtn);
+let activeClass3 = document.querySelector(".hover3");
+// console.log(activeClass)
+activeClass3.addEventListener("mouseover",()=> {
+  activeClass3.classList.add("active")
+});
+activeClass3.addEventListener("mouseleave", ()=> {
+    activeClass3.classList.remove("active")
+});
 
-
-// function displayFilter(){
-//   document.getElementById("data-container").innerHTML = "";
-//   let latestArray = [];
-//   for( let i=0; i<filterBtn.length; i++){
-//     if(displayArray[i]== true){
-//       // console.log(i,displayArray[i]);
-//       let displayData = arr.filter(data => data.tag == filterBtn[i].innerHTML);
-//       // console.log(displayData);
-//       latestArray.push(...displayData);
-//       loadData({gotData:blogData});
-//     }
-//   }
-// }
-// displayFilter();
-// })
-
-
-
-
-
-
-
-
-
-
-    // loadData(tcsinfo);
-
-    // search.addEventListener('input' , ()=> {
-    //   searchInfo(search.value);
-    //   n = false;
-    // });
-    
-  //  fetch('info.json')
-  // .then(response => response.json())
-  // .then((data) => {
-  //   var start = 0;
-  //   var end = 3;
-  //   let newdata = data.slice(start, end)
-  //   var context = {
-  //     gotData: newdata
-  //   };
-  //   // console.log(data);
-  //   // console.log(newdata)
-  //   var ourGeneratedHTML = compiledTemplate(context);
-  //   document.getElementById("data-container").innerHTML += ourGeneratedHTML;
-  //   document.addEventListener("scroll", () => {
-  //     let documentHeight = document.body.scrollHeight;
-  //     let currentScroll = window.scrollY + window.innerHeight;
-  //     let modifier = 0;
-  //     if (currentScroll + modifier > documentHeight) {
-  //       start += 3;
-  //       end += 3;
-  //       const newdata = data.slice(start, end)
-  //       var context = {
-  //         gotData: newdata
-  //       };
-  //       var ourGeneratedHTML = compiledTemplate(context);
-  //       document.getElementById("data-container").innerHTML += ourGeneratedHTML;
-  //     }
-
-  //   })
-   
-  // });
-
-
-// window.addEventListener("scroll",()=>{
-//   if(window.scrollY + window.innerHeight > document.documentElement.scrollHeight){
-//     console.log("varun")
-
-
-
-
-
- // for(let i=0;i<data.length;i++){
-    // console.log(searchText);
-    // console.log(data);
-    // console.log(data[i].title);
-
-    // if (searchText === data[0].title)
-    // if (data[i].title.toLowerCase().includes(searchText.toLowerCase()))
-    // {
-    //   console.log(data[i].title);
-    // //   var ourGeneratedHTML = compiledTemplate(data);
-    // // document.getElementById("data-container").innerHTML += ourGeneratedHTML;
-    // let newdata = data[i].title
-    // var context = {
-    //   gotData: newdata
-    // };
-    // // console.log(newdata)
-    // var ourGeneratedHTML = compiledTemplate(context);
-    // document.getElementById("data-container").innerHTML += ourGeneratedHTML;
-  //   }
-  // }
-  // })
-
+let activeClass4 = document.querySelector(".hover4");
+// console.log(activeClass)
+activeClass4.addEventListener("mouseover",()=> {
+  activeClass4.classList.add("active")
+});
+activeClass4.addEventListener("mouseleave", ()=> {
+    activeClass4.classList.remove("active")
+});
 
 
 
