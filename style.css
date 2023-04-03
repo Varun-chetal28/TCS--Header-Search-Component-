@@ -23,6 +23,7 @@
   display: none;
   border-bottom: 2px solid #888888;
   animation: growDown 500ms ease forwards;
+  transition: all 0.5s ease-out;
   transform-origin: top;
 }
 
@@ -202,6 +203,7 @@ nav .wrapper {
   display: none;
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
   animation: foldDown 0.5s ease forwards;
+  transition: all 0.5s ease-out;
   animation-direction: alternate;
   transform-origin: top;
 }
@@ -862,6 +864,7 @@ ul.menu {
   display: table;
   height: 100vh;
   animation: growLeft 500ms ease forwards;
+  transition: all 0.5s ease-out;
   transform-origin: right;
 }
 
@@ -984,6 +987,7 @@ ul.menu .list .active:after {
 
 ul.menu .active>.items {
   animation: growDown 500ms ease forwards;
+  transition: all 0.5s ease-out;
   transform-origin: top;
   display: block;
   /* background: #23313f; */
